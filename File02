@@ -1,0 +1,73 @@
+
+## 2. Tài liệu kết quả phân tích nghiệp vụ (File 02)
+
+### **Actors**
+- Khách hàng (End User).  
+- Ứng dụng Mobile Banking (App).  
+- Hệ thống eKYC (OCR, Liveness Detection, Face Matching).  
+- Core Banking System.  
+- Cơ sở dữ liệu quốc gia (để đối chiếu CCCD).  
+
+### **Business Flow**
+1. Khách hàng tải và mở ứng dụng.  
+2. Nhập thông tin cơ bản (họ tên, số CCCD, số điện thoại, email).  
+3. Chụp ảnh 2 mặt CCCD.  
+4. Thực hiện quét khuôn mặt (Liveness check).  
+5. Hệ thống đối chiếu dữ liệu CCCD với ảnh khuôn mặt.  
+6. Nếu hợp lệ → cấp số tài khoản tự động.  
+7. Nếu không hợp lệ → thông báo lỗi và yêu cầu thử lại.  
+
+### **Functional Requirements**
+- Đăng ký thông tin cơ bản.  
+- OCR nhận diện dữ liệu từ CCCD.  
+- Liveness check để chống giả mạo.  
+- Đối chiếu dữ liệu với hệ thống quốc gia.  
+- Sinh số tài khoản tự động.  
+- Thông báo kết quả cho khách hàng.  
+
+### **Non-Functional Requirements**
+- **Bảo mật:** Mã hóa dữ liệu CCCD và khuôn mặt.  
+- **Hiệu năng:** Xử lý OCR và Liveness check trong < 5 giây.  
+- **Khả dụng:** Hệ thống hoạt động 24/7.  
+- **Khả năng mở rộng:** Hỗ trợ hàng triệu giao dịch đồng thời.  
+- **Tuân thủ pháp lý:** Theo chuẩn Ngân hàng Nhà nước về eKYC.  
+
+### **Assumptions & Business Rules**
+- Khách hàng phải đủ 18 tuổi.  
+- CCCD hợp lệ theo cơ sở dữ liệu quốc gia.  
+- Một số CCCD chỉ mở được một tài khoản duy nhất.  
+- VIP khách hàng có thể được xử lý ưu tiên.  
+
+---
+
+### **User Stories**
+- As a customer, I want to register basic info so that I can start eKYC.  
+- As a customer, I want to scan my CCCD so that the system can verify my identity.  
+- As a customer, I want to perform liveness check so that the bank ensures I am a real person.  
+- As a customer, I want to receive an account number instantly so that I can use banking services without visiting a branch.  
+- As a bank, I want to automate account creation so that we minimize manual operations.  
+
+---
+
+### **Use Cases**
+1. **UC01 – Register Basic Info**  
+   - Actor: Customer  
+   - Precondition: App installed  
+   - Flow: Nhập thông tin → Lưu vào hệ thống  
+
+2. **UC02 – Upload CCCD**  
+   - Actor: Customer  
+   - Flow: Chụp ảnh CCCD → OCR → Lưu dữ liệu  
+
+3. **UC03 – Liveness Check**  
+   - Actor: Customer  
+   - Flow: Quét khuôn mặt → Đối chiếu ảnh CCCD  
+
+4. **UC04 – Verify Identity**  
+   - Actor: System  
+   - Flow: Đối chiếu dữ liệu với cơ sở dữ liệu quốc gia  
+
+5. **UC05 – Create Account**  
+   - Actor: System  
+   - Flow: Sinh số tài khoản → Thông báo cho khách hàng  
+ 
